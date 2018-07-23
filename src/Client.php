@@ -80,4 +80,23 @@ class Client
 
         return $this->makeRequest(self::ENDPOINT . $context->getBusinessUnitId() . '/invitations', $json);
     }
+    
+    /**
+     * @param Context $context
+     * @param Recipient $recipient
+     * @param string $referenceId
+     */
+    public function inviteLinks(Context $context, Recipient $recipient, $referenceId)
+    {
+        $json = [
+            'referenceId' => $referenceId,
+            'name' => $recipient->getName(),
+            'tags' => $context->getTags(),
+            'locale' => $context->getLocale(),
+            'email' => $recipient->getEmail(),
+            'redirectUri' => $context->getRedirectUri(),
+        ];
+
+        return $this->makeRequest(self::ENDPOINT . $context->getBusinessUnitId() . '/invitation-links', $json);
+    }
 }
